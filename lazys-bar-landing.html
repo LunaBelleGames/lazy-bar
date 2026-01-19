@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lazy's Lost Soul Watering Hole</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(to bottom, #0a0a1a 0%, #1a0a2e 50%, #0a0a1a 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: 
+                radial-gradient(ellipse at center, rgba(138, 43, 226, 0.1) 0%, transparent 70%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="100" cy="100" r="2" fill="white" opacity="0.8"/><circle cx="300" cy="200" r="1" fill="white" opacity="0.6"/><circle cx="500" cy="150" r="1.5" fill="white" opacity="0.7"/><circle cx="700" cy="300" r="1" fill="white" opacity="0.5"/><circle cx="900" cy="100" r="2" fill="white" opacity="0.8"/><circle cx="200" cy="400" r="1" fill="white" opacity="0.6"/><circle cx="600" cy="500" r="1.5" fill="white" opacity="0.7"/><circle cx="800" cy="600" r="1" fill="white" opacity="0.5"/><circle cx="400" cy="700" r="2" fill="white" opacity="0.8"/><circle cx="150" cy="800" r="1" fill="white" opacity="0.6"/></svg>');
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(10, 10, 26, 0.8) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .bar-name {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #00ffff;
+            text-shadow: 
+                0 0 10px #00ffff,
+                0 0 20px #00ffff,
+                0 0 30px #00ffff,
+                0 0 40px #8a2be2;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff;
+            font-style: italic;
+            margin-bottom: 3rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #8a2be2, #00ffff);
+            color: #0a0a1a;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.8);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 3rem;
+            color: #00ffff;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        /* Characters Section */
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .character-card {
+            background: rgba(26, 10, 46, 0.6);
+            border: 2px solid #8a2be2;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
+            border-color: #00ffff;
+        }
+
+        .character-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 100%);
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8a2be2;
+            font-size: 0.9rem;
+            border: 1px solid #8a2be2;
+        }
+
+        .character-name {
+            font-size: 1.5rem;
+            color: #ff00ff;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 5px #ff00ff;
+        }
+
+        .character-role {
+            font-size: 1rem;
+            color: #00ffff;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .character-bio {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            line-height: 1.5;
+        }
+
+        /* Stories Section */
+        .stories-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .story-card {
+            background: rgba(26, 10, 46, 0.6);
+            border-left: 4px solid #00ffff;
+            padding: 2rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .story-card:hover {
+            background: rgba(26, 10, 46, 0.8);
+            border-left-color: #ff00ff;
+        }
+
+        .story-title {
+            font-size: 1.8rem;
+            color: #00ffff;
+            margin-bottom: 1rem;
+        }
+
+        .story-excerpt {
+            color: #c0c0c0;
+            line-height: 1.8;
+        }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #ff00ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #00ffff;
+        }
+
+        /* About Section */
+        .about-content {
+            background: rgba(26, 10, 46, 0.6);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid #8a2be2;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #c0c0c0;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #0a0a1a;
+            color: #8a2be2;
+            border-top: 2px solid #8a2be2;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .bar-name {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .characters-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="bar-name">Lazy's Lost Soul<br>Watering Hole</h1>
+            <p class="tagline">Where the cosmos comes to drown its sorrows</p>
+            <a href="#characters" class="cta-button">Meet the Souls</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About the Hole</h2>
+        <div class="about-content">
+            <p>Floating in the void between star systems, Lazy's Lost Soul Watering Hole isn't just a bar—it's a sanctuary for the weary, the broken, and the searching.</p>
+            <p>Here, spacers, drifters, and lost souls gather to share stories, forget their pasts, and occasionally find their futures. The drinks are strong, the company is questionable, and the jukebox only plays songs from dead civilizations.</p>
+            <p>Welcome to the edge of nowhere. Pull up a stool.</p>
+        </div>
+    </section>
+
+    <!-- Characters Section -->
+    <section id="characters">
+        <h2>The Souls Who Call It Home</h2>
+        <div class="characters-grid">
+            <div class="character-card">
+                <div class="character-image">[Character Image 1]</div>
+                <h3 class="character-name">Lazy</h3>
+                <p class="character-role">Owner & Bartender</p>
+                <p class="character-bio">A mysterious figure who appeared in the void one day and decided to set up shop. No one knows their real name, species, or why they call themselves Lazy. They mix the best drinks in three sectors and ask no questions.</p>
+            </div>
+
+            <div class="character-card">
+                <div class="character-image">[Character Image 2]</div>
+                <h3 class="character-name">Character Name</h3>
+                <p class="character-role">Role/Title</p>
+                <p class="character-bio">Add your character's bio here. What brought them to the bar? What secrets do they carry? What are they running from or searching for?</p>
+            </div>
+
+            <div class="character-card">
+                <div class="character-image">[Character Image 3]</div>
+                <h3 class="character-name">Character Name</h3>
+                <p class="character-role">Role/Title</p>
+                <p class="character-bio">Add your character's bio here. What brought them to the bar? What secrets do they carry? What are they running from or searching for?</p>
+            </div>
+
+            <div class="character-card">
+                <div class="character-image">[Character Image 4]</div>
+                <h3 class="character-name">Character Name</h3>
+                <p class="character-role">Role/Title</p>
+                <p class="character-bio">Add your character's bio here. What brought them to the bar? What secrets do they carry? What are they running from or searching for?</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stories Section -->
+    <section id="stories">
+        <h2>Tales from the Void</h2>
+        <div class="stories-container">
+            <div class="story-card">
+                <h3 class="story-title">Story Title One</h3>
+                <p class="story-excerpt">
+                    Add your story excerpt here. This could be the opening of a tale set in the bar, a memory from one of your characters, or a legend that gets told over drinks. Make it atmospheric and draw readers in...
+                </p>
+                <a href="#" class="read-more">Read More →</a>
+            </div>
+
+            <div class="story-card">
+                <h3 class="story-title">Story Title Two</h3>
+                <p class="story-excerpt">
+                    Add your story excerpt here. This could be the opening of a tale set in the bar, a memory from one of your characters, or a legend that gets told over drinks. Make it atmospheric and draw readers in...
+                </p>
+                <a href="#" class="read-more">Read More →</a>
+            </div>
+
+            <div class="story-card">
+                <h3 class="story-title">Story Title Three</h3>
+                <p class="story-excerpt">
+                    Add your story excerpt here. This could be the opening of a tale set in the bar, a memory from one of your characters, or a legend that gets told over drinks. Make it atmospheric and draw readers in...
+                </p>
+                <a href="#" class="read-more">Read More →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Lazy's Lost Soul Watering Hole | A fictional creation</p>
+    </footer>
+</body>
+</html>
